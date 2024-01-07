@@ -1,10 +1,12 @@
-const express = require('express');
+const express = require("express");
+const path = require("path");
+
+const rootDir = require("../utils/path");
 
 const admin = express.Router();
 
-admin.get('/', (req, res) => {
-  console.log("I am in the next middleware");
-  res.send("<div>Hello world</div>");
+admin.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "views", "admin.html"));
 });
 
 module.exports = admin;

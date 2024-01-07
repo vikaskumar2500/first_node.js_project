@@ -1,16 +1,13 @@
 const express = require("express");
+const path = require("path");
+
+const rootDir = require("../utils/path");
 
 const shop = express.Router();
+console.log('path', rootDir);
 
 shop.use("/add-product", (req, res) => {
-  res.send(`
-    <form action='/add-product' method="POST">
-      <input id='product' name='product' type='text'/>
-      <input id='id' name='id' type='number'/>
-      <button type='submit'>Submit</button>
-    </form>
-  `);
-  console.log("body", req.body);
+  res.sendFile(path.join(__dirname,'..', "views", "shop.html"));
 });
 
 module.exports = shop;
