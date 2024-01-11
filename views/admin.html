@@ -3,19 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <title>Home</title>
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/add-product">Add product</a>
-        <a href="/contact-us">Contact Us</a>
+    <header
+      class="border fixed top-0 left-0 h-[4rem] w-full shadow-md bg-gray-200 flex items-center justify-center group"
+    >
+      <nav class="flex items-center justify-center gap-5">
+        <a
+          href="/"
+          class="font-semibold text-lg hover:underline hover:text-violet-700"
+          >Home</a
+        >
+        <a
+          href="/add-product"
+          class="font-semibold text-lg hover:underline hover:text-violet-700"
+          >Add product</a
+        >
+        <a
+          href="/contact-us"
+          class="font-semibold text-lg hover:underline hover:text-violet-700 active:underline"
+          >Contact Us</a
+        >
       </nav>
     </header>
-    <main>
-      <h2>Welcome to Home</h2>
+    <main class="w-full mt-28 flex items-center justify-center">
+      <h2 class="text-xl font-semibold">Welcome to Home</h2>
     </main>
   </body>
 </html>

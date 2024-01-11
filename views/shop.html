@@ -3,23 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <title>Add product</title>
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/add-product">Add product</a>
-        <a href="/contact-us">Contact Us</a>
+    <header
+      class="border fixed top-0 left-0 h-[4rem] w-full shadow-md bg-gray-200 flex items-center justify-center group"
+    >
+      <nav class="flex items-center justify-center gap-5">
+        <a
+          href="/"
+          class="font-semibold text-lg hover:underline hover:text-violet-700"
+          >Home</a
+        >
+        <a
+          href="/add-product"
+          class="font-semibold text-lg hover:underline hover:text-violet-700"
+          >Add product</a
+        >
+        <a
+          href="/contact-us"
+          class="font-semibold text-lg hover:underline hover:text-violet-700 active:underline"
+          >Contact Us</a
+        >
       </nav>
     </header>
-    <main>
-      <h2>Add your favourite product</h2>
-      <form action="/add-product" method="POST">
-        <input id="product" name="product" type="text" />
-        <input id="id" name="id" type="number" />
-        <button type="submit">Submit</button>
-      </form>
+    <main class="w-full mt-28 flex items-center justify-center">
+      <section
+        class="flex text-center border w-[30rem] p-5 rounded-md shadow-md justify-center flex-col gap-4"
+      >
+        <h3 class="w-full text-lg font-bold text-center">
+          Add your favourite product
+        </h3>
+        <form
+          action="/add-product"
+          method="POST"
+          class="w-full flex flex-col items-start gap-5 justify-between"
+        >
+          <div class="flex flex-col gap-1 items-start w-full">
+            <label for="product" class="font-semibold">Product</label>
+            <input
+              type="text"
+              name="product"
+              id="product"
+              class="h-8 w-full rounded-sm border focus-visible:border-blue-700 outline-none px-2 py-1"
+              required
+            />
+          </div>
+          <button type="submit" class="border w-full py-1 bg-violet-700 rounded-[0.25rem] text-gray-100">Submit</button>
+        </form>
+      </section>
     </main>
   </body>
 </html>

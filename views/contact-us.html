@@ -3,23 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <title>Document</title>
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/add-product">Add product</a>
-        <a href="/contact-us">Contact Us</a>
+    <header
+      class="border fixed top-0 left-0 h-[4rem] w-full shadow-md bg-gray-200 flex items-center justify-center group"
+    >
+      <nav class="flex items-center justify-center gap-5">
+        <a
+          href="/"
+          class="font-semibold text-lg hover:underline hover:text-violet-700"
+          >Home</a
+        >
+        <a
+          href="/add-product"
+          class="font-semibold text-lg hover:underline hover:text-violet-700"
+          >Add product</a
+        >
+        <a
+          href="/contact-us"
+          class="font-semibold text-lg hover:underline hover:text-violet-700 active:underline"
+          >Contact Us</a
+        >
       </nav>
     </header>
-    <main>
-      <h3>Contact Us</h3>
-      <form action="/contact-us" method="post">
-        <input type="text" name="name" id="name" />
-        <input type="email" name="email" id="email" />
-        <button type="submit">Submit</button>
-      </form>
+    <main class="w-full mt-28 flex items-center justify-center">
+      <section
+        class="flex text-center border w-[30rem] p-5 rounded-md shadow-md justify-center flex-col gap-4"
+      >
+        <h3 class="w-full text-2xl font-bold text-center">CONTACT US</h3>
+        <form
+          action="/contact-us"
+          method="post"
+          class="w-full gap-2 flex flex-col items-start justify-between"
+        >
+          <div class="flex flex-col gap-1 items-start w-full">
+            <label for="name" class="font-semibold">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="h-8 w-full rounded-[0.3rem]"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1 items-start w-full">
+            <label for="email" class="font-semibold">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="h-8 w-full rounded-[0.3rem]"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1 items-start w-full">
+            <label for="phone" class="font-semibold">Phone</label>
+            <input
+              type="text"
+              name="phone"
+              id="phone"
+              class="h-8 w-full rounded-[0.3rem]"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1 items-start w-full">
+            <label for="message" class="font-semibold">Message</label>
+            <textarea
+              name="message"
+              id="message"
+              class="h-[80px] w-full rounded-[0.3rem]"
+              placeholder="Write your message..."
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="border w-full py-1 mt-3 bg-violet-700 rounded-[0.25rem] text-gray-100"
+          >
+            Submit
+          </button>
+        </form>
+      </section>
     </main>
   </body>
 </html>

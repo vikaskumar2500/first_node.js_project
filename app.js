@@ -3,19 +3,18 @@ const http = require("http");
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-
-const rootDir = require("./utils/path");
+const _404Controllers = require("./controllers/404");
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "src")));
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const contactUsRoutes = require("./routes/contact-us");
 const successRoutes = require("./routes/success");
-console.log("path", rootDir);
 
 app.use(successRoutes);
 app.use(contactUsRoutes);
@@ -23,8 +22,6 @@ app.use(shopRoutes);
 app.use(adminRoutes);
 
 // page not found handling
-app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "..", "views", "404.html"));
-});
+app.use(_404Controllers);
 
-app.listen(3001);
+app.listen(3000);
