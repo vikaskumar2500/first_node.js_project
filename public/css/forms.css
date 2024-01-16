@@ -1,0 +1,51 @@
+.form-control {
+  margin: 1rem 0;
+}
+
+.form-control label,
+.form-control input,
+.form-control textarea {
+  width: 100%;
+  margin-bottom: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-control label {
+    font-weight: 700;
+}
+
+.form-control input {
+  border: 1px solid #a1a1a1;
+  font: inherit;
+  border-radius: 5px;
+  padding-inline: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.form-control textarea {
+  border: 1px solid #a1a1a1;
+  font: inherit;
+  border-radius: 5px;
+  padding-inline: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.form-control input:focus {
+  outline-color: #00695c;
+}
+
+.text-area {
+  width: 100%;
+}
+
+.btn {
+  width: 100%;
+  background-color: #00695c;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+}
