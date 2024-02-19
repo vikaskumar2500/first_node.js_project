@@ -1,6 +1,38 @@
 <%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/cart.css">
 </head>
 
 <body>
+  <main class="cart card">
+    <% if (carts.length > 0) { %>
+    <div class="grid">
+      <% for (let cart of carts) { %>
+      <article class="product-item">
+        <header class="card__header">
+          <h1 class="product__title">
+            <%= cart?.title %>
+          </h1>
+          <p class="product__description">
+            <%= cart.description %>
+          </p>
+        </header>
+
+        <div class="card__content">
+          <h2 class="product__price">$
+            <%= cart.price %>
+          </h2>
+          <h3>
+            <%= cart.qty %>
+          </h3>
+        </div>
+    </div>
+    </article>
+    <% } %>
+    </div>
+    <% } else { %>
+    <h1>No Products Found!</h1>
+    <% } %>
+    <footer class="footer"><%= totalPrice.toFixed(2) %></footer>
+  </main>
   <%- include('../includes/navigation.ejs') %>
   <%- include('../includes/end.ejs') %>

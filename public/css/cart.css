@@ -1,0 +1,25 @@
+.cart {
+  position: absolute;
+  margin-top: 5rem;
+  top: 0;
+  article {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-right: 2rem;
+  }
+  border: 1px solid whitesmoke;
+  /* background:whitesmoke; */
+  /* z-index: 50; */
+  border-radius: 12px;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+}
+.heading {
+  width: 100%;
+  text-align: center;
+}
+

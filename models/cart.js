@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const Product = require("./product");
 
 const p = path.join(
   path.dirname(process.mainModule.filename),
@@ -8,22 +9,40 @@ const p = path.join(
 );
 
 module.exports = class Cart {
-  static addToCart(id, productPrice) {
-    //all products
-    fs.readFile(p, (err, data) => {
-      let cart = { products: [], totalPrice: 0 };
-      if (!err) cart = JSON.parse(data);
-
-      const existingProductIndex = cart.products.findIndex(
-        (product) => product.id == id
+  static addToCart = async (id, productPrice) => {
+    try {
+      let totalCart = JSON.parse(fs.readFileSync(p));
+      const existingProductIndex = totalCart.carts.findIndex(
+        (product) => product.id === id
       );
-      if (cart.products[existingProductIndex]) {
-        cart.products[existingProductIndex].qty += 1;
+      if (existingProductIndex !== -1) {
+        totalCart.carts[existingProductIndex].qty += 1;
       } else {
-        cart.products = [...cart.products, { id, qty: 1 }];
+        const data = await new Promise((resolve, reject) => {
+          Product.findProductById(id, (product) => {
+            resolve(product);
+          });
+        });
+        totalCart.carts = [...totalCart.carts, { ...data, qty: 1 }];
       }
-      cart.totalPrice += +productPrice;
-      fs.writeFile(p, JSON.stringify(cart), (err) => console.log(err));
+      // console.log("total cart", totalCart);
+
+      totalCart.totalPrice += +productPrice;
+
+      fs.writeFileSync(p, JSON.stringify(totalCart)); // Assuming writeFileAsync writes totalCart to file asynchronously
+
+      console.log("Cart updated successfully");
+    } catch (err) {
+      console.error("Error updating cart:", err);
+    }
+  };
+
+  static getAllCart(cb) {
+    fs.readFile(p, (err, data) => {
+      let cartsData = { products: [], totalPrice: 0 };
+      if (!err) cartsData = JSON.parse(data);
+      // console.log(cartsData);
+      cb(cartsData);
     });
   }
 };

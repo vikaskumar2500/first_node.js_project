@@ -5,10 +5,15 @@
   display: block;
 }
 
+article {
+  border: 1px solid whitesmoke;
+}
+
 .product-item {
   width: 20rem;
   max-width: 95%;
   margin: 1rem;
+  border: 1px solid whitesmoke;
 }
 
 .product__title {
