@@ -58,7 +58,7 @@ exports.postAddProduct = (req, res, next) => {
   res.redirect("/");
 };
 
-exports.getProducts = (req, res, next) => {
+exports.getProducts = async (req, res, next) => {
   Product.fetchAll((products) => {
     res.render("admin/products", {
       prods: products,
@@ -66,6 +66,6 @@ exports.getProducts = (req, res, next) => {
       path: "/admin/products",
     });
   });
+  
 };
 
-// exports.editProducts = (req, res, next) => {};
