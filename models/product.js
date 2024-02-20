@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const uuid = require("uuid");
+const db = require("../util/db");
 const uuidv4 = uuid.v4();
 
 const p = path.join(
@@ -31,8 +32,9 @@ module.exports = class Product {
 
   save() {
     this.id = uuidv4;
-    getProductsFromFile((products) => {
+    getProductsFromFile(async(products) => {
       products.push(this);
+      await db.execute("INSERT INTO products VALUES(?,?,?,?,?)", [...this]);
       fs.writeFile(p, JSON.stringify(products), (err) => {
         console.log(err);
       });
@@ -40,7 +42,7 @@ module.exports = class Product {
   }
 
   static editProduct(product) {
-    getProductsFromFile((products) => {
+    getProductsFromFile(async(products) => {
       const filteredProducts = products.filter(
         (prod) => prod.id !== product.id
       );
@@ -52,9 +54,9 @@ module.exports = class Product {
   }
 
   static deleteProduct(id) {
-    getProductsFromFile((products) => {
+    getProductsFromFile(async(products) => {
       const filteredProducts = products.filter((prod) => prod.id !== id);
-
+      
       fs.writeFile(p, JSON.stringify(filteredProducts), (error) =>
         console.log(error)
       );
