@@ -1,13 +1,11 @@
-const Product = require("../models/product");
-const Cart = require("../models/cart");
+const { Carts, Products } = require("../models/schema");
 const db = require("../util/db");
 
 exports.getProducts = async (req, res, next) => {
-  const result = await db.execute("select * from Products");
-  const data = result[0];
+  const result = await Products.findAll();
 
   res.render("shop/product-list", {
-    prods: data,
+    prods: result,
     pageTitle: "All Products",
     path: "/products",
   });
@@ -22,11 +20,7 @@ exports.getProducts = async (req, res, next) => {
 
 exports.getProduct = async (req, res, next) => {
   const productId = req.params.productId;
-  console.log(productId);
-  const result = await db.execute("select * from Products where id=?", [
-    productId,
-  ]);
-  const product = result[0][0];
+  const product = await Products.findOne({ where: { id: productId } });
   res.render("shop/product-detail", {
     pageTitle: "Product | Details",
     path: "/products",
@@ -42,7 +36,7 @@ exports.getProduct = async (req, res, next) => {
 };
 
 exports.getIndex = async (req, res, next) => {
-  const result = await db.execute("select * from Products");
+  const result = await db.query("select * from Products");
   const data = result[0];
   res.render("shop/index", {
     prods: data,
@@ -59,16 +53,15 @@ exports.getIndex = async (req, res, next) => {
 };
 
 exports.getCart = async (req, res, next) => {
-  const result = await db.execute("select * from cart");
-  const data = result[0];
-  const totalPrice = data.reduce(
+  const result = await Carts.findAll();
+  const totalPrice = result.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
   res.render("shop/cart", {
     path: "/cart",
     pageTitle: "Your Cart",
-    carts: data,
+    carts: result,
     totalPrice: totalPrice,
   });
   // Cart.getAllCart((cartData) => {
@@ -84,33 +77,29 @@ exports.getCart = async (req, res, next) => {
 exports.postCart = async (req, res, next) => {
   const encodedProduct = req.body.product;
   const product = JSON.parse(encodedProduct);
-  const result = await db.execute("select * from cart where productId=?", [
-    product.id,
-  ]);
-
-  if (result[0].length===0) {
-    await db.execute(
-      "INSERT INTO cart (productId, title, price, description, imageUrl, quantity) VALUES(?,?,?,?,?,?)",
-      [
-        product.id,
-        product.title,
-        product.price,
-        product.description,
-        product.imageUrl,
-        1,
-      ]
-    );
+  const { id, price, title, description, imageUrl } = product;
+  const result = await Carts.findOne({ where: { productId: id } });
+  if (!result) {
+    await Carts.create({
+      productId: id,
+      price,
+      title,
+      description,
+      imageUrl,
+      quantity: 1,
+    });
   } else {
-    db.execute("update cart set quantity = quantity+? where productId=?", [
-      1,
-      product.id,
-    ]);
+    await Carts.update(
+      {
+        quantity: result.quantity + 1,
+      },
+      {
+        where: {
+          productId: id,
+        },
+      }
+    );
   }
-  // const cart = result[0][0];
-  // Product.fetchAll((products) => {
-  //   const product = products.find((prod) => prod.id == productId);
-  //   Cart.addToCart(product.id, product.price);
-  // });
   res.redirect("/cart");
 };
 
