@@ -4,6 +4,11 @@ import dotenv from "dotenv";
 import path, { join } from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
+import cors from "cors";
+
+import users from "../routes/users";
+import { db } from "./db";
+
 /*
  * Load up and parse configuration details from
  * the `.env` file to the `process.env`
@@ -33,15 +38,14 @@ app.use(cookieParser());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 /* Define a route for the root path ("/")
  using the HTTP GET method */
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + Typescript");
-});
+app.use("/", users);
 
 /* Start the Express app and listen
  for incoming requests on the specified port */
