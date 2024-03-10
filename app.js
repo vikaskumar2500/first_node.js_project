@@ -31,7 +31,14 @@ Products.hasMany(Carts, {
   targetKey: "id",
   foreignKeyConstraint: true,
 });
-Carts.belongsTo(Products);
+Carts.hasMany(Products, {
+  constraints: true,
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: "cartId",
+  targetKey: "id",
+  foreignKeyConstraint: true,
+});
 
 sequelize
   .sync()
