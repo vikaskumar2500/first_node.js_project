@@ -1,0 +1,53 @@
+<li id="<%= blog.id %>" class="bg-black flex flex-col gap-5 item-start text-white p-5 rounded-md">
+  <div class="flex item-center justify-between">
+    <h2 class="font-bold text-lg cursor-pointer"><%= blog.title %></h2>
+    <button id="toggleIcon-<%= blog.id %>" class="font-bold text-2xl" type="button" onclick="toggleContent('<%= blog.id %>')">+</button>
+  </div>
+  <div id="content-<%= blog.id %>" class="hide">
+    <div class="flex flex-col gap-5 mb-5">
+      <h3 class="text-red-500 font-semibold">Blog contents</h3>
+      <p class="ml-10 text-gray-100"><%= blog.content %></p>
+    </div>
+    <%- include('./comments/index.ejs', { comments: blog.comments }) %>
+  </div>
+</li>
+
+<script>
+  function toggleContent(blogId) {
+    const content = document.getElementById(`content-${blogId}`);
+    const toggleIcon = document.getElementById(`toggleIcon-${blogId}`);
+
+    // Toggle visibility of content
+    const show = content.classList.toggle("hide");
+
+    // Update icon text based on visibility state
+    toggleIcon.innerText = show ? "-" : "+";
+
+    // Retrieve the array of open blog IDs from localStorage
+    let openBlogs = JSON.parse(localStorage.getItem("openBlogs")) || [];
+
+    // Update the array of open blog IDs based on the visibility state
+    if (show) {
+      // If the content is visible, add its ID to the array
+      if (!openBlogs.includes(blogId)) {
+        openBlogs.push(blogId);
+      }
+    } else {
+      // If the content is hidden, remove its ID from the array
+      openBlogs = openBlogs.filter(id => id !== blogId);
+    }
+
+    // Store the updated array of open blog IDs in localStorage
+    localStorage.setItem("openBlogs", JSON.stringify(openBlogs));
+  }
+
+  // Retrieve the array of open blog IDs from localStorage on page load
+  document.addEventListener("DOMContentLoaded", function() {
+    const openBlogs = JSON.parse(localStorage.getItem("openBlogs")) || [];
+
+    // Toggle the content of each open blog to show
+    openBlogs.forEach(blogId => {
+      toggleContent(blogId);
+    });
+  });
+</script>

@@ -1,0 +1,17 @@
+<form class="blog_form pt-10 px-5" action="/add-blog" method="POST">
+  <h2 class="text-orange-400 font-semibold">Create a New Blog Post</h2>
+  <div class="form-control">
+    <label for="title" class="text-orange-400 font-semibold">Blog Title:</label>
+    <input type="text" name="title" id="title">
+  </div>
+  <div class="form-control">
+    <label for="author" class=" text-orange-400 font-semibold">Blog Author:</label>
+    <input type="text" name="author" id="author">
+  </div>
+
+  <div class="form-control">
+    <label for="content" class=" text-orange-400 font-semibold">Blog Content:</label>
+    <textarea name="content" id="content" rows="4"></textarea>
+  </div>
+  <button class="btn w-full text-gray-100 bg-[#EA580C] mb-4" type="submit">Post</button>
+</form>

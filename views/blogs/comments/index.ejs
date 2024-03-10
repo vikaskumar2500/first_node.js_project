@@ -1,0 +1,26 @@
+<section>
+  <form action="/add-comment" method="post" class="relative max-w-[20rem] flex flex-col gap-2">
+    <h3 class="font-semibold">Comments</h3>
+    <div class="relative max-w-[20rem]">
+      <input type="text" name="comment" class="w-full px-2 py-1 text-black rounded-md" id="comment" placeholder="Write a comment">
+      <input type="text" name="blogId" hidden value="<%= blog.id %>" id="blogId">
+      <button type="submit border absolute right-0">
+        <span class="absolute right-2 top-2 w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-l-[16px] border-l-black"></span>
+      </button>
+    </div>
+  </form>
+  <ul class="flex flex-col gap-2 item-start">
+    <% comments.forEach(comment=> {%>
+    <li class="flex flex-col gap-2">
+      <div class="flex flex-col item-start gap-2">
+        <span><%= comment.comment %> </span>
+        <form action="/delete-comments/<%= comment.id %>" method="post">
+          <button class="text-red-600 border rounded-md px-2 py-1" type="sumbit">Delete</button>
+        </form>
+      </div>
+      <div class="border-2 w-full"></div>
+
+    </li>
+    <%})%>
+  </ul>
+</section>

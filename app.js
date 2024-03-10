@@ -10,35 +10,25 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-const adminRoutes = require("./routes/admin");
-const shopRoutes = require("./routes/shop");
-const { Products, Carts } = require("./models/schema");
+const homeRoutes = require("./routes/home");
+const Blogs = require("./models/blogs");
+const Comments = require("./models/comments");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/admin", adminRoutes);
-
-app.use(shopRoutes);
+app.use(homeRoutes);
 
 app.use(errorController.get404);
 
-Products.hasMany(Carts, {
+Blogs.hasMany(Comments, {
   constraints: true,
   onDelete: "CASCADE",
   onUpdate: "CASCADE",
-  foreignKey: "productId",
-  targetKey: "id",
-  foreignKeyConstraint: true,
+  foreignKey: "blogId",
+  sourceKey: "id",
 });
-Carts.hasMany(Products, {
-  constraints: true,
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-  foreignKey: "cartId",
-  targetKey: "id",
-  foreignKeyConstraint: true,
-});
+Comments.belongsTo(Blogs);
 
 sequelize
   .sync()

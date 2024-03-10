@@ -1,6 +1,15 @@
 .form-control {
   margin: 1rem 0;
 }
+.blog_form {
+  width: 20rem;
+  max-width: 90%;
+  display: block;
+  background-color: #00537c;
+  padding: 5px;
+  padding-inline: 10px;
+  border-radius: 12px;
+}
 
 .form-control label,
 .form-control input,
@@ -22,4 +31,6 @@
   outline-color: #00695c;
 }
 
-
+.hide {
+  display: none;
+}
