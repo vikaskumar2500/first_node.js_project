@@ -58,7 +58,7 @@ exports.postEditProduct = async (req, res, next) => {
   const description = req.body.description;
   await Products.update(
     { title, imageUrl, price, description },
-    { where: { id: productId } }
+    { where: { id: productId }, sideEffects: false, individualHooks: true }
   );
   await Carts.update(
     { title, imageUrl, price, description },

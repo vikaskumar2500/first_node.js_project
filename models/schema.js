@@ -4,9 +4,9 @@ const sequelize = require("../util/db");
 
 const Products = sequelize.define("products", {
   id: {
-    type: Sequelize.STRING,
-    defaultValue: Sequelize.UUIDV4,
+    type: Sequelize.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
   },
   title: {
     type: Sequelize.STRING,
@@ -28,16 +28,9 @@ const Products = sequelize.define("products", {
 
 const Carts = sequelize.define("carts", {
   id: {
-    type: Sequelize.STRING,
-    defaultValue: Sequelize.UUIDV4,
+    type: Sequelize.INTEGER,
     primaryKey: true,
-  },
-  productId: {
-    type: Sequelize.STRING,
-    references: {
-      model: "products",
-      key: "id",
-    },
+    autoIncrement: true,
   },
   title: {
     type: Sequelize.STRING,
@@ -57,13 +50,8 @@ const Carts = sequelize.define("carts", {
   },
   quantity: {
     type: Sequelize.INTEGER,
-    autoIncrement: true,
+    defaultValue: 1,
   },
-});
-
-Products.hasMany(Carts, {
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
 });
 
 module.exports = { Products, Carts };
