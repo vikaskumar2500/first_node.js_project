@@ -1,0 +1,16 @@
+<%- include("./includes/head") %>
+</head>
+
+<body>
+  <main>
+    <section>
+      <pre><%= data %></pre>
+    </section>
+    <form action="/" method="post">
+      <div>
+        <input type="text" name="message" id="message" />
+      </div>
+      <button class="button" type="submit">Send</button>
+    </form>
+  </main>
+  <%- include("./includes/end") %>
